@@ -32,8 +32,8 @@ simplify assertions (and get better error messages) when verifying calls to
 mocked dependencies.
 
 [tsx](https://github.com/privatenumber/tsx#readme) is used as a custom module
-loader to make mocha work seemlessly with TypeScript and ES Module. (thanks to 
-[@mariomui](https://github.com/mariomui) for pointing me in this direction)
+loader to make mocha work seemlessly with TypeScript and ES Module. (I had help
+here, see [Special thanks](#special-thanks))
 
 ### Restart
 
@@ -92,6 +92,13 @@ provide improved error messages.
 I really wanted to change the editor config to use 2 spaces for indents, as the
 other setting is IMHO horrible. But I decided to not do that in this repo, so
 simplify merging updates from the source.
+
+## Special Thanks
+
+Thanks goes to [@mariomui](https://github.com/mariomui) for providing help how
+to setup a test runner for obsidian plugin development, pointing me towards
+[tsx](https://github.com/privatenumber/tsx#readme) (which I didn't know about
+before), and showing many other examples of how others have setup testing.
 
 ## Original readme from Obsidian sample plugin
 
