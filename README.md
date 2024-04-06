@@ -1,4 +1,33 @@
-# Obsidian Sample Plugin
+# Obsidian Sample Plugin With Tests
+
+This repo is a fork of the sample plugin for Obsidian, with tests added.
+
+The choices of libraries here are MY personal preferences.
+
+The test runner is [mocha](https://mochajs.org/), rather than jest, which seems
+to be gaining a lot of popularity. But mocha is much faster, and the most
+important quality of a test runner is speed. Jest also tries to do too much
+IMHO, as it also includes assertion and mocking functionality, which I'd rather
+use dedicated libraries for. this package includes:
+
+- [Chai](https://www.chaijs.com/) - an assertion library, extensible through a lot of plugins
+- [Sinon](https://sinonjs.org/) - Mockins and stubbing.
+
+I've also added [sinon-chai](https://github.com/domenic/sinon-chai) so allow
+simplify assertions (and get better error messages) when verifying calls to
+mocked dependencies.
+
+Check the two files in the `/tests` folder for how this works, or throw then
+await and build your own setup if you already know this by heart.
+
+Note, this uses chai version 4, which is not the latest release, as I seemed to
+get peer dependency version conflicts with sinon-chai.
+
+p.s. I really wanted to change the editor config to use 2 spaces for indents,
+as the other setting is IMHO horrible. But I decided to not do that in this
+repo, so simplify merging updates from the source.
+
+## Original readme from Obsidian sample plugin
 
 This is a sample plugin for Obsidian (https://obsidian.md).
 
