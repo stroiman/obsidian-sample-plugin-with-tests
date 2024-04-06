@@ -81,7 +81,7 @@ own setup if you already know this by heart.
 ### Other notes
 
 This uses chai version 4, which is not the latest release, because sinon-chai
-still has a peer dependency to version chai version 4. (Should this have been
+still has a peer dependency to that version of chai. (Should this have been
 fixed when you are reading this, please write me; or even better, make a PR)
 
 One of the great things about chai is the plugin architecture. Not only does
