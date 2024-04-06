@@ -1,5 +1,9 @@
 # Obsidian Sample Plugin With Tests
 
+The first part of the readme is specific to this fork, below you will find the
+unmodified content from the 
+[original readme from Obsidian sample plugin](#original-readme-from-obsidian-sample-plugin)
+
 ## Notes for this fork
 
 This repo is a fork of the sample plugin for Obsidian, with support for TDD.
