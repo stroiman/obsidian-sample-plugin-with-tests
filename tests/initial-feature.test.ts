@@ -1,9 +1,10 @@
 import sinon from "sinon";
 import { expect } from "chai";
+import { foo } from "../src/implementation";
 
 describe("Developing some feature", () => {
 	it("Should start with a failing test", () => {
-		expect(1).to.equal(2);
+		expect(foo()).to.equal(42);
 	});
 });
 

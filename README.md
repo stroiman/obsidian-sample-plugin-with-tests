@@ -7,6 +7,11 @@ This repo is a fork of the sample plugin for Obsidian, with support for TDD.
 The choices of libraries here are MY personal preferences, don't write me if
 you don't like them, you'll not change my mind. Create your own fork instead.
 
+There _may_ be issues with how the "restart" functionality works on Windows, it
+is based on features of the linux/MacOS shells. If you can run the test runner
+using sh/bash/zsh/fish or the like, it should run. Read more in the "restart"
+section.
+
 ### Choice of tools
 
 The test runner is [mocha](https://mochajs.org/), rather than jest, which seems
@@ -25,35 +30,59 @@ mocked dependencies.
 [tsx](https://github.com/privatenumber/tsx#readme) is used as a custom module
 loader to make mocha work seemlessly with TypeScript and ES Module.
 
-[nodemon](https://nodemon.io/) is used to restart the test runner in watch mode.
-when it stops. With the current setup, the `test:wach` script quits on 
-syntactic errors such as mismatched parenthisis. Without nodemon, you'd have to
-restart the process manually.
+### Restart
+
+The setup uses mocha in watch mode to get the fastest feedback possible. But
+the combination with _tsx_ makes the process crash on syntax errors, such as
+mismatched parenthesis.
+
+In this case, the test runner should be restarted. And the solution to this
+problem is _probably not_ compatible with Windows. (Let me know if it works, or
+if you have a more cross-platform non-intrusive solution to this problem)
+
+I only want to restart on this specific condition (syntax errors), and truly
+shut it down on a termination signal, such as when the user presses
+<key>Ctrl</key><key>+c</key>.
+
+From casually exploratory testing, it appears that mocha exits with an exit
+code of `1` in case of syntax errors, and `130` when I press
+<key>Ctrl</key><key>+c</key>. So I use `[ $? -eq 1 ]` to check if we want to
+restart. 
+
+In this case I run a small node.js script that uses `fs.watch` to wait for
+changes to any file before retrying (retrying immediately would cause mocha into
+a continuous retry loop using CPU time until you fixed the problem).
+
+The implementation uses `||` and `&&` shell script operators to run the
+commands in sequance (which I would assume to not work on Windows outside WSL)
+
+(Fun fact: These operators are exactly like threir JS couterparts. The
+difference is that expressions are commands that you execute, and
+"truthy"/"falsy" are represented by exit codes zero and non-zero. Comparisons
+like `[ $? -eq 1 ]` also has an exit code)
 
 ### Examples
 
-Check the two files in the `/tests` folder for how this works, or throw then
-await and build your own setup if you already know this by heart.
+There are the two files in the `/tests` folder to show how this works, one file
+with tests using sinon and chai, and one setup file, that configures chai with
+plugins.
 
-These are just bare bones examples to how mocha, sinon, and chai works. 
+These are just bare bones examples to how mocha, sinon, and chai works, and
+there are plenty of resources online to help you. Then also have excellent
+documentation on their web sites.
 
-Don't ask me about general questions about the tools here, there are plenty of
-helpful resources on stackoverflow. I'll not answer.
-
-(You are welcome to ask about general questions about how to write an Obsidian
-plugin in a testable manner, but I'll not guarantee that I answer due to other
-commitmens, limited time, and this is done without pay in my spare time)
+Check them out, if you are new to this, or throw them await awai and build your
+own setup if you already know this by heart.
 
 ### Other notes
 
 This uses chai version 4, which is not the latest release, because sinon-chai
-still has a peer dependency to version 4. (Should this have been fixed when you
-are reading this, please write me, or even better make a PR)
+still has a peer dependency to version chai version 4. (Should this have been
+fixed when you are reading this, please write me; or even better, make a PR)
 
 One of the great things about chai is the plugin architecture. Not only does
-this allow you to write the assertions more succinctly, but the true value of
-the plugins (at least the good ones) are the improved error messages, providing
-much more helpful error messages.
+this allow you to write the assertions more succinctly, but the great plugins
+provide improved error messages.
 
 I really wanted to change the editor config to use 2 spaces for indents, as the
 other setting is IMHO horrible. But I decided to not do that in this repo, so
