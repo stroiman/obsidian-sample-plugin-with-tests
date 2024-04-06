@@ -33,7 +33,7 @@ mocked dependencies.
 
 [tsx](https://github.com/privatenumber/tsx#readme) is used as a custom module
 loader to make mocha work seemlessly with TypeScript and ES Module. (thanks to 
-@mariomui for pointing me in this direction)
+[@mariomui](https://github.com/mariomui) for pointing me in this direction)
 
 ### Restart
 
