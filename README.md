@@ -1,8 +1,13 @@
 # Obsidian Sample Plugin With Tests
 
-This repo is a fork of the sample plugin for Obsidian, with tests added.
+## Notes for this fork
 
-The choices of libraries here are MY personal preferences.
+This repo is a fork of the sample plugin for Obsidian, with support for TDD.
+
+The choices of libraries here are MY personal preferences, don't write me if
+you don't like them, you'll not change my mind. Create your own fork instead.
+
+### Choice of tools
 
 The test runner is [mocha](https://mochajs.org/), rather than jest, which seems
 to be gaining a lot of popularity. But mocha is much faster, and the most
@@ -17,15 +22,42 @@ I've also added [sinon-chai](https://github.com/domenic/sinon-chai) so allow
 simplify assertions (and get better error messages) when verifying calls to
 mocked dependencies.
 
+[tsx](https://github.com/privatenumber/tsx#readme) is used as a custom module
+loader to make mocha work seemlessly with TypeScript and ES Module.
+
+[nodemon](https://nodemon.io/) is used to restart the test runner in watch mode.
+when it stops. With the current setup, the `test:wach` script quits on 
+syntactic errors such as mismatched parenthisis. Without nodemon, you'd have to
+restart the process manually.
+
+### Examples
+
 Check the two files in the `/tests` folder for how this works, or throw then
 await and build your own setup if you already know this by heart.
 
-Note, this uses chai version 4, which is not the latest release, as I seemed to
-get peer dependency version conflicts with sinon-chai.
+These are just bare bones examples to how mocha, sinon, and chai works. 
 
-p.s. I really wanted to change the editor config to use 2 spaces for indents,
-as the other setting is IMHO horrible. But I decided to not do that in this
-repo, so simplify merging updates from the source.
+Don't ask me about general questions about the tools here, there are plenty of
+helpful resources on stackoverflow. I'll not answer.
+
+(You are welcome to ask about general questions about how to write an Obsidian
+plugin in a testable manner, but I'll not guarantee that I answer due to other
+commitmens, limited time, and this is done without pay in my spare time)
+
+### Other notes
+
+This uses chai version 4, which is not the latest release, because sinon-chai
+still has a peer dependency to version 4. (Should this have been fixed when you
+are reading this, please write me, or even better make a PR)
+
+One of the great things about chai is the plugin architecture. Not only does
+this allow you to write the assertions more succinctly, but the true value of
+the plugins (at least the good ones) are the improved error messages, providing
+much more helpful error messages.
+
+I really wanted to change the editor config to use 2 spaces for indents, as the
+other setting is IMHO horrible. But I decided to not do that in this repo, so
+simplify merging updates from the source.
 
 ## Original readme from Obsidian sample plugin
 
